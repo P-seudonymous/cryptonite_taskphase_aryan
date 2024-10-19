@@ -17,5 +17,4 @@ i created a shell script(x,sh) with the necessary commands, and then piped it to
 
 i made a shell script, named ```script.sh```, and then wrote ```/challenge/solve``` to it. to make it executable, i used ```chmod u+x script.sh```. running ```./script.sh``` gave me the flag.
 
-![alt text](/assets/executable.png "")
-
+![alt text](/assets/executable.png)
