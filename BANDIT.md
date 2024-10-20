@@ -48,3 +48,45 @@ since i want a human readable string, i used the ```strings``` command which dis
 
 running ```strings data.txt | grep ==``` gave me the password.
 
+## lvl 11
+
+in this chal, we need to decode base64 encoded file. for that, we can use the builtin commands in linux.
+```base64 -d``` can decode a base64 encoded file.
+
+running the command ```base64 -d data.txt``` gave me the password.
+
+## lvl 12
+
+since we are rotating the chars by 13 alphabets, we are using ROT13 substitution.
+
+in this chal, i can easily use any online decoder(https://dcode.fr/en), but to solve this in shell, we can use the ```tr``` command ie translate.
+
+in order to substitute, i made an alias for rot13 => ```alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"``` and then ran ```cat data.txt | rot13``` which gave me the password.
+
+## lvl 13
+
+this chal was too complicated and hard, here are the important details needed to crack these types of chals.
+
+hexdumps => ```xxd <inputFile> <outputFile>```
+header file(gzip) => 1f8b08
+header file(bzip2) => 425a68
+header file(tar archive) => 646174
+
+i had to compress/decompress a lot of files to get the password.
+
+## lvl 14
+
+the following command is used to transfer data over the internet, using ssh.
+```scp -P <port> <user>@<IP>:<remotefilepath> <localfilepath>```
+
+
+
+
+
+
+
+
+
+
+
+
