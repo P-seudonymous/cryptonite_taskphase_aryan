@@ -25,6 +25,8 @@ Now, i tried to open the .deb file, but since i use arch btw, i just extracted t
 
 i installed the pgk using yay, and ran some commands(image attacted below) to get the flag
 
+Also, i figured that the passphrase should be DUEDILIGENCE since there was no other option.
+
 ![ALT TEXT](/assets/tftp_tp2.png)
 
 
