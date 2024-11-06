@@ -1,6 +1,6 @@
 ## GDB baby step 1
 
-Flag: picoCTF{549698}
+Flag: ```picoCTF{549698}```
 
 Hints used: NONE
 
@@ -18,7 +18,7 @@ the following image is where i found the flag.
 
 ## ARMssembly 1
 
-Flag: picoCTF{00000715}
+Flag: ```picoCTF{00000715}```
 
 Hints used: Shift register
 
@@ -36,3 +36,4 @@ asm file: [chall_1.S](/TP_2/chal_assets/chall_1.STP2)
 Wrong Tangents: Wasted more than an hour trying to find the right tools, packages and compilers to run the asm file, in which i failed miserably, since i kept getting random errors while compiling the file.
 after that, i realized that maybe reading the asm file could solve the chal, which was what eventually worked.
 
+## 
