@@ -42,11 +42,11 @@ i ran ```xxd -l 0x40 tunn3l_v1s10n``` to get the first 4 lines of hexdump, which
 
 The following image shows the data i edited.
 
-![ALT TEXT](/assets/tunn3l_v1s10n_tp2.png)
+![ALT TEXT](/assets/tunnel_vision_tp2.png)
 
 The flag is attached below.
 
-![ALT TEXT](/TP_2/chal_assets/tunn3l_v1s10n(1).bmp)
+![ALT TEXT](/TP_2/chal_assets/tunn3l_v1s10n(1))
 
 
 
