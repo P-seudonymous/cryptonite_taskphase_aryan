@@ -30,3 +30,24 @@ Also, i figured that the passphrase should be DUEDILIGENCE since there was no ot
 ![ALT TEXT](/assets/tftp_tp2.png)
 
 
+
+## tunn3l_v1s10n
+
+Flag: ```picoCTF{qu1t3_a_v13w_2020}```
+
+Hints Used: NONE
+
+This challenge was extremely straightforward,
+i ran ```xxd -l 0x40 tunn3l_v1s10n``` to get the first 4 lines of hexdump, which made it clear that i had to mess with the header file and pixel size data of the .BMP(windows bitmap) file.
+
+The following image shows the data i edited.
+
+![ALT TEXT](/assets/tunn3l_v1s10n_tp2.png)
+
+The flag is attached below.
+
+![ALT TEXT](/TP_2/chal_assets/tunn3l_v1s10n(1).bmp)
+
+
+
+

@@ -13,4 +13,3 @@ funnily, i found a site, https://www.allrecipes.com/gallery/most-popular-types-o
 
 this was the final flag.
 ![ALT TEXT](/assets/cookies_tp2.png)
-

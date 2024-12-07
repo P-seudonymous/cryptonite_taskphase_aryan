@@ -27,3 +27,11 @@ attaching the image for reference.
 
 ![alt text](/assets/format_tp2.png)
 
+## flag-leak
+
+Flag: ```picoCTF{L34k1ng_Fl4g_0ff_St4} ```
+
+Hints used: NONE
+
+
+
