@@ -153,6 +153,6 @@ For cleanup:
 
 Following files are attached which are the output of the decoding.
 
-![alt text](assets/moonwalk.png)
+![alt text](/assets/moonwalk.png)
 ![alt text](/assets/moonwalk_tp2.png)
 
