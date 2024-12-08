@@ -50,4 +50,109 @@ The flag is attached below.
 
 
 
+## m00nwalk
+
+Flag: ```picoCTF{beep_boop_im_in_space}```
+
+Hints Used: 1 & 2
+
+This challenge was a little complicated, due to all the packages involved to get the flag.
+
+It was clear from the hint 1 that we need to decode the .wav file using SSTV(slow scan tv) protocol. To decode this,
+i installed around 3 packages related to sstv(slowrx, sstv, qsstv), out of which only qsstv worked.
+
+Now, to give the input .wav, i tried adding the .wav direcly instead of taking input from the sound card, but
+that did not work, maybe due to some error in the application.
+
+So, i made a virtual audio channel and played the ```message.wav``` file via the channel.
+
+i used ```pavucontrol``` as the audio server.
+
+Here are the commands used(for giving the input):
+
+```
+pactl load-module module-null-sink sink_name=virtual-cable
+paplay -d virtual-cable message.wav
+```
+For cleanup: 
+```
+>>pactl list short modules
+1       libpipewire-module-rt   {
+            nice.level    = -11
+            rt.prio       = 88
+            #rt.time.soft = -1
+            #rt.time.hard = -1
+            #uclamp.min = 0
+            #uclamp.max = 1024
+        }
+2       libpipewire-module-protocol-native      {
+            # List of server Unix sockets, and optionally permissions
+            #sockets = [ { name = "pipewire-0" }, { name = "pipewire-0-manager" } ]
+        }
+4       libpipewire-module-profiler
+6       libpipewire-module-metadata
+8       libpipewire-module-spa-device-factory
+10      libpipewire-module-spa-node-factory
+12      libpipewire-module-client-node
+14      libpipewire-module-client-device
+16      libpipewire-module-portal
+17      libpipewire-module-access       {
+            # Socket-specific access permissions
+            #access.socket = { pipewire-0 = "default", pipewire-0-manager = "unrestricted" }
+
+            # Deprecated legacy mode (not socket-based),
+            # for now enabled by default if access.socket is not specified
+            #access.legacy = true
+        }
+18      libpipewire-module-adapter
+20      libpipewire-module-link-factory
+22      libpipewire-module-session-manager
+536870912       module-always-sink
+536870913       module-device-manager
+536870914       module-device-restore
+536870915       module-stream-restore
+536870916       module-null-sink        sink_name=virtual-cable
+
+>>pactl unload-module 536870916
+
+pseudonymous  …/cryptonite_taskphase_aryan/TP_2/chal_assets   main !?    v14.2.1  00:48  pactl list short modules1       libpipewire-module-rt   {
+            nice.level    = -11
+            rt.prio       = 88
+            #rt.time.soft = -1
+            #rt.time.hard = -1
+            #uclamp.min = 0
+            #uclamp.max = 1024
+        }
+2       libpipewire-module-protocol-native      {
+            # List of server Unix sockets, and optionally permissions
+            #sockets = [ { name = "pipewire-0" }, { name = "pipewire-0-manager" } ]
+        }
+4       libpipewire-module-profiler
+6       libpipewire-module-metadata
+8       libpipewire-module-spa-device-factory
+10      libpipewire-module-spa-node-factory
+12      libpipewire-module-client-node
+14      libpipewire-module-client-device
+16      libpipewire-module-portal
+17      libpipewire-module-access       {
+            # Socket-specific access permissions
+            #access.socket = { pipewire-0 = "default", pipewire-0-manager = "unrestricted" }
+
+            # Deprecated legacy mode (not socket-based),
+            # for now enabled by default if access.socket is not specified
+            #access.legacy = true
+        }
+18      libpipewire-module-adapter
+20      libpipewire-module-link-factory
+22      libpipewire-module-session-manager
+536870912       module-always-sink
+536870913       module-device-manager
+536870914       module-device-restore
+536870915       module-stream-restore
+```
+
+Following files are attached which are the output of the decoding.
+
+![alt text](/chal_assets/moonwalk.png)
+![alt text](/assets/moonwalk_tp2.png)
 
