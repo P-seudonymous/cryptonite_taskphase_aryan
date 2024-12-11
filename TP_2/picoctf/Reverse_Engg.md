@@ -105,7 +105,7 @@ class VaultDoor3 {
 ```
 
 
-Here is the script i wrote.![python script](/chal_assets/VaultDoor3.py)
+Here is the script i wrote.![python script](/cryptonite_taskphase_aryan/TP_2/chal_assets/VaultDoor3.py)
 ```
 str = 'jU5t_a_sna_3lpm18g947_u_4_m9r54f'
 buffer = [''] * 32
