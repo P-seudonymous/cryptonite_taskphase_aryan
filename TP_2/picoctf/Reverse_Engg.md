@@ -36,4 +36,93 @@ asm file: [chall_1.S](/TP_2/chal_assets/chall_1.STP2)
 Wrong Tangents: Wasted more than an hour trying to find the right tools, packages and compilers to run the asm file, in which i failed miserably, since i kept getting random errors while compiling the file.
 after that, i realized that maybe reading the asm file could solve the chal, which was what eventually worked.
 
-## 
+## VaultDoor3
+
+Flag: ```picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_79958f}```
+
+Hints Used: NONE
+
+In the following challenge, we had a .java file in which input, after going through 4 for loops is being compared with a string.
+
+also, in the java file, scanner was not closed, so i added the ```scanner.close()``` line at the end of the main func.
+
+since the flag is supposed to be the same string, but jumbled(since loops are begin implemented).
+so, to get the flag, i wrote a simple python script that takes the string as input, and implements for_loops in reverse order, like 1->4, 2->3. 3->2 and so on.
+
+from that, i got the the correct string, and adding picoCTF{} to it gave me the flag.
+
+Here is the code given in the challenge.
+
+```
+import java.util.*;
+
+class VaultDoor3 {
+    public static void main(String args[]) {
+        VaultDoor3 vaultDoor = new VaultDoor3();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter vault password: ");
+        String userInput = scanner.next();
+
+	String input = userInput.substring("picoCTF{".length(),userInput.length()-1);
+
+	if (vaultDoor.checkPassword(input)) {
+	    System.out.println("Access granted.");
+	} else {
+	    System.out.println("Access denied!");
+        }
+        scanner.close(); // added this line manually to the code.
+
+    }
+
+    // Our security monitoring team has noticed some intrusions on some of the
+    // less secure doors. Dr. Evil has asked me specifically to build a stronger
+    // vault door to protect his Doomsday plans. I just *know* this door will
+    // keep all of those nosy agents out of our business. Mwa ha!
+    //
+    // -Minion #2671
+    public boolean checkPassword(String password) {
+        if (password.length() != 32) {
+            return false;
+        }
+        char[] buffer = new char[32];
+        int i;
+        for (i=0; i<8; i++) {
+            buffer[i] = password.charAt(i);
+        }
+        for (; i<16; i++) {
+            buffer[i] = password.charAt(23-i);
+        }
+        for (; i<32; i+=2) {
+            buffer[i] = password.charAt(46-i);
+        }
+        for (i=31; i>=17; i-=2) {
+            buffer[i] = password.charAt(i);
+        }
+        String s = new String(buffer);
+        return s.equals("jU5t_a_sna_3lpm18g947_u_4_m9r54f");
+    }
+}
+```
+
+
+Here is the script i wrote.![python script](/chal_assets/VaultDoor3.py)
+```
+str = 'jU5t_a_sna_3lpm18g947_u_4_m9r54f'
+buffer = [''] * 32
+
+for i in range(31,16,-2):
+    buffer[i] = str[i]
+
+for i in range(16, 32, 2):
+    buffer[i] = str[46 - i]
+    
+for i in range(8, 16):
+    buffer[i] = str[23-i]
+
+for i in range(8):
+    buffer[i] = str[i]
+
+
+print(''.join(buffer))
+
+```
