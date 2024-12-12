@@ -11,8 +11,9 @@ out = ""
 
 prev = 0
 for char in chars:
-  cur = lookup1.index(char)
-  out += lookup2[(cur - prev) % 40]
-  prev = cur
+  cur = lookup2.index(char)
+  var = lookup1[(cur + prev) % 40]
+  out += lookup1[(cur + prev) % 40]
+  prev = lookup1.index(var)
 
 sys.stdout.write(out)
