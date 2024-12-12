@@ -242,6 +242,22 @@ print(flag)
 ```
 
 
+## miniRSA
+
+Flag: ```picoCTF{n33d_a_lArg3r_e_d0cd6eae}```
+
+Hints Used: NONE
+
+If i had to solve the challenge using the conventional way of writing rsa decryption code, it would have taken a long time.
+instead, i went to https://www.dcode.fr/rsa-cipher and directly got the answer after filling in the values.
+
+here is the image attached.
+
+![flag](/assets/miniRSA_tp2.png)
+
+
+
+
 
 
 
