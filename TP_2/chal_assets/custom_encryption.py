@@ -26,7 +26,7 @@ def is_prime(p):
 
 def dynamic_xor_encrypt(plaintext, text_key):
     cipher_text = ""
-    key_length = 34 #len(text_key)
+    key_length = len(text_key)
     for i, char in enumerate(plaintext[::-1]):
         key_char = text_key[i % key_length]
         encrypted_char = chr(ord(char) ^ ord(key_char))
@@ -40,8 +40,8 @@ def test(plain_text, text_key):
     if not is_prime(p) and not is_prime(g):
         print("Enter prime numbers")
         return
-    a = 88 #randint(p-10, p)
-    b = 26 #randint(g-10, g)
+    a = randint(p-10, p)
+    b = randint(g-10, g)
     print(f"a = {a}")
     print(f"b = {b}")
     u = generator(g, a, p)
