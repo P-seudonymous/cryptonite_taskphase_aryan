@@ -27,3 +27,27 @@ since the file was supposedly in ```/usr/share/nginx/html/```, that meant i need
 The flag is attached.
 
 ![forbidden](/assets/forbidden_tp2.png)
+
+
+## SOAP
+
+Flag: ```picoCTF{XML_3xtern@l_3nt1t1ty_0dcf926e}```
+
+Hints Used: 1
+
+This is by far the most complicated challenge, since it required a lot of external tools to solve, and i could not get the browser is burpsuite(i used zaproxy) to run at all.
+
+We had to perform an XXE injection, and the process was that, you need to send a GET request to the picoctf link.
+from there, you needed to send a POST request on the site, by clicking a button for details of each block.
+
+After that, you get an option to edit the xml code, where we inject the xxe.
+![post](/assets/SOAP1.png)
+
+
+the code that was to be added was ```<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
+<data><ID>&xxe; 1</ID></data>```
+
+After sending the request for the same, i got a dump of etc/passwd which contained the flag.
+
+
