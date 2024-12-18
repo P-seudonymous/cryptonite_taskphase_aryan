@@ -1,7 +1,7 @@
 
 ## Writeups for niteCTF
 
-### Team Name/Rank => 0b10 steps ahead/39
+### Team Name, Rank => 0b10 steps ahead, 39
 
 ### Individual Score => 0
 
