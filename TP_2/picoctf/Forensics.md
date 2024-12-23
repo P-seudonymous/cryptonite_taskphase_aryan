@@ -176,4 +176,13 @@ Since the key was provided in the challenge, i added the key in preferences, und
 After giving it the key, the screen refreshed and instead of TLSv1.2, i got HTTP protocol in a few columns, and upon opening the dump for GET request, i got the flag.
 ![alt text](Extras/webnet0_flag.png)
 
-## 
+## WebNet1{HARD}
+
+Flag: ```picoCTF{honey.roasted.peanuts}```
+
+Hints Used: NONE
+
+Similar to the last challenge, i had a different .pcapng file and a key, but this time, the flag was not in the GET request. So after opening different requests, i spotted the flag in ```GET /vulture.jpg HTTP/1.1```.
+
+![alt text](Extras/webnet1_flag.png)
+
