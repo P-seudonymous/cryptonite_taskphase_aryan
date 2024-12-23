@@ -7,4 +7,4 @@
 
 ### Team score => 1220
 
-> Writeups for PWN(3) and Forensics(2)
+> Writeups for PWN(3), Forensics(2), Hardware(1)

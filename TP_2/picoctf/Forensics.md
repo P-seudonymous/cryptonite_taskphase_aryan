@@ -156,3 +156,24 @@ Following files are attached which are the output of the decoding.
 ![alt text](/assets/moonwalk.png)
 ![alt text](/assets/moonwalk_tp2.png)
 
+# EXTRA CHALS
+
+## WebNet0{HARD}
+
+Flag: ```picoCTF{nongshim.shrimp.crackers}```
+
+Hints Used: 2
+
+![alt text](Extras/webnet0.png)
+
+In this chall, i was given a .pcapng file, and after opening the file in wireshark, i understood it had some data related to the TLS Protocol {transport layer security is a cryptographic protocol that essentially safeguards the communication b/w a server and user on the internel}.
+
+After examining it further, i got to know that there was an RSA-AES encryption.
+![alt text](Extras/webnet0_1.png)
+
+Since the key was provided in the challenge, i added the key in preferences, under the TLS protocol section.
+
+After giving it the key, the screen refreshed and instead of TLSv1.2, i got HTTP protocol in a few columns, and upon opening the dump for GET request, i got the flag.
+![alt text](Extras/webnet0_flag.png)
+
+## 
