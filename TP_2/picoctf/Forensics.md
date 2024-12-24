@@ -217,3 +217,15 @@ In the hexdump, it was quite clear that only 2 strings were being repeated.
 ```0x20``` which is the code for standard space, and ```0xe2\0x80\0x83```. since there are 2 options i approached the chal by taking them as binary chars. after taking ```0x20``` as 0, i got the following output.
 
 ```b'\n\t\tpicoCTF\n\n\t\tSEE PUBLIC RECORDS & BACKGROUND REPORT\n\t\t5000 Forbes Ave, Pittsburgh, PA 15213\n\t\tpicoCTF{not_all_spaces_are_created_equal_3e2423081df9adab2a9d96afda4cfad6}\n\t\t'```
+
+## extensions {MEDIUM}
+
+Flag:```picoCTF{now_you_know_about_extensions}```
+
+Hints Used: NONE
+
+pretty easy chall, the file was given as flag.txt.
+changing the extension from flag.txt -> flag.png gave me the flag.
+
+![alt text](Extras/flag.png)
+
