@@ -241,3 +241,29 @@ so i used ```zsteg``` package to check for hidden data and got the flag.
 
 ![alt text](Extras/buildings_flag.png)
 
+## Packets Primer {MEDIUM}
+
+Flag: ```picoCTF{p4ck37_5h4rk_b9d53765}```
+
+Hints Used: NONE
+
+for this challenge, we were provied a .pcap file which had some data on the TCP(transmission control protocol) stream and some data on the Ethernet/ARP stream.
+
+I wasted a lot of time on the Ethernet data since there was some text in the info, which was readable and made sense.
+![alt text](Extras/network-scam.png)
+
+Eventually i realized there was nothing there, and then i followed the TCP stream which gave me the flag instantly. 
+
+![alt text](Extras/packets_primer_tcpstream.png)
+
+To get rid of the whitespace, i wrote a small python script.
+
+```
+b = "p i c o C T F { p 4 c k 3 7 _ 5 h 4 r k _ b 9 d 5 3 7 6 5 }"
+
+x = ''.join(b.split())
+
+print(x)
+```
+
+
