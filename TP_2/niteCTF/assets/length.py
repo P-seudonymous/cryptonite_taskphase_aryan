@@ -16,7 +16,3 @@ original_string = "This is a sample string with multiple words"
 result = words_to_newlines(a)
 
 print(result) 
-
-b = 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwKlFPNKjseJF5'
-
-print(len(b))

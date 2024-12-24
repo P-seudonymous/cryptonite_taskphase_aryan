@@ -186,3 +186,34 @@ Similar to the last challenge, i had a different .pcapng file and a key, but thi
 
 ![alt text](Extras/webnet1_flag.png)
 
+## WhitePages {MEDIUM}
+
+Flag: ```picoCTF{not_all_spaces_are_created_equal_3e2423081df9adab2a9d96afda4cfad6}```
+
+Hints Used: NONE
+
+In this challenge, i was given a file, which contained only whitespaces.
+
+So initially, i ran ```file whitespaces.txt``` which gave me the output
+```whitepages.txt: Unicode text, UTF-8 text, with very long lines (1376), with no line terminators```
+
+After that, i tried to get the hexdump for file by running ```xxd whitespaces.txt > HEXD_WHITE.txt```
+
+```
+00000000: e280 83e2 8083 e280 83e2 8083 20e2 8083  ............ ...
+00000010: 20e2 8083 e280 83e2 8083 e280 83e2 8083   ...............
+00000020: 20e2 8083 e280 8320 e280 83e2 8083 e280   ...... ........
+00000030: 83e2 8083 20e2 8083 e280 8320 e280 8320  .... ...... ... 
+00000040: 2020 e280 83e2 8083 e280 83e2 8083 e280    ..............
+00000050: 8320 20e2 8083 20e2 8083 e280 8320 e280  .  ... ...... ..
+00000060: 8320 20e2 8083 e280 83e2 8083 2020 e280  .  .........  ..
+00000070: 8320 20e2 8083 2020 2020 e280 8320 e280  .  ...    ... ..
+00000080: 83e2 8083 e280 83e2 8083 2020 e280 8320  ..........  ... 
+00000090: e280 8320 e280 8320 e280 83e2 8083 e280  ... ... ........
+000000a0: 8320 e280 83e2 8083 e280 8320 20e2 8083  . .........  ...
+```
+
+In the hexdump, it was quite clear that only 2 strings were being repeated.
+```0x20``` which is the code for standard space, and ```0xe2\0x80\0x83```. since there are 2 options i approached the chal by taking them as binary chars. after taking ```0x20``` as 0, i got the following output.
+
+```b'\n\t\tpicoCTF\n\n\t\tSEE PUBLIC RECORDS & BACKGROUND REPORT\n\t\t5000 Forbes Ave, Pittsburgh, PA 15213\n\t\tpicoCTF{not_all_spaces_are_created_equal_3e2423081df9adab2a9d96afda4cfad6}\n\t\t'```
