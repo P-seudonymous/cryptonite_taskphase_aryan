@@ -16,7 +16,8 @@ original_string = "This is a sample string with multiple words"
 result = rem_whitespace(a)
 
 b = "p i c o C T F { p 4 c k 3 7 _ 5 h 4 r k _ b 9 d 5 3 7 6 5 }"
+c =  '{ 3 n h 4 n c 3 d _ 2 4 3 7 4 6 7 5 }'
 
-x = ''.join(b.split())
+x = ''.join(c.split())
 
 print(x) 
