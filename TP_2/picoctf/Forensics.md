@@ -229,3 +229,15 @@ changing the extension from flag.txt -> flag.png gave me the flag.
 
 ![alt text](Extras/flag.png)
 
+## What Lies Within {MEDIUM}
+
+Flag: ```picoCTF{h1d1ng_1n_th3_b1t5}```
+
+Hints Used: NONE
+
+In this challenge, i had a normal looking .png file. so the first thing i did was get the hexdump of the png but the header and the ending was correct. so i googled online for different steganography methods, and came across LSB Steganography, where the least significant bit is replaced with the message to be hidden.
+
+so i used ```zsteg``` package to check for hidden data and got the flag.
+
+![alt text](Extras/buildings_flag.png)
+
