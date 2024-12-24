@@ -266,4 +266,28 @@ x = ''.join(b.split())
 print(x)
 ```
 
+## So Meta {MEDIUM}
+
+Flag: ```picoCTF{s0_m3ta_eb36bf44}```
+
+Hints Used: NONE
+
+So apparently to solve this challenge, there are 2 methods
+
+#### Method 1
+
+This is the method i used.
+ran ```xxd pico_img.png > hexd_pico.txt``` to get the hexdump of the image.
+
+The flag was at the end of the hex_dump.
+![alt text](Extras/so_meta1.png)
+
+#### Method 2
+
+This was the method i found online, there exists a tool named ```exiftool``` which can provided information about a file, including meta data.
+
+Unfortunately, i couldn't install the package on arch, no mirrors were available.
+
+
+
 
