@@ -436,3 +436,23 @@ Basic challenge, had to navigate through the entire pcap file to get the flag.
 This signified the flag must be in the hex dump, therefore i just skimmed through the entire file and got the flag.
 
 ![alt text](Extras/pcappoisoningFLAG.png)
+
+## Torrent Analyze {MEDIUM}
+
+Flag: ```picoCTF{ubuntu-19.10-desktop-amd64.iso}```
+
+Hints Used: NONE
+
+In this challenge, i was provided with the traffic of multiple torrent files.
+instead of magnets, info hashes were provided. 
+
+so i put the ```bt-dht``` (bittorrent distributed hash table) filter on wireshark and got a lot of hashes.
+
+![alt text](Extras/torrent1.png)
+
+i tried various info hashes, but since the flag was the a disk image(iso file), which was 
+```Info_hash=e2467cbf021192c241367b892230dc1e05c0580e```
+
+i put the infohash in qbittorrent and got the file name, which is also the flag.
+
+![alt text](Extras/torrent_flag.png)
