@@ -456,3 +456,148 @@ i tried various info hashes, but since the flag was the a disk image(iso file), 
 i put the infohash in qbittorrent and got the file name, which is also the flag.
 
 ![alt text](Extras/torrent_flag.png)
+
+## Surfing the Waves {HARD}
+
+Flag: ```picoCTF{mU21C_1s_1337_fa54924c}```
+
+Hints Used: 2
+
+This challenge was a little difficult, since i had to script a lot of stuff with libraries ive never used.
+
+I initially tried opening the .wav in VLC, but i didnt open, probably since the file was barely 5kb(signifies short duration since wav>>mp3 in size).
+
+To hear the audio, i opened the file in audacity, and it sounded like some static noise.
+
+I ran ``` file main.wav``` and got this in return ```main.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 2736 Hz```
+
+then i tried reading the ```xxd``` of the file but that was useless.
+
+After that, i opened audacity again and looked at the sound wave clearly, which showed that the max amplitude was same in the wave.
+
+So i googled how to get the data for amplitude, and wrote the following script.
+
+```
+from scipy.io import *
+import numpy as np
+
+rate, data = wavfile.read('main.wav')
+
+# print(data)
+print(np.unique(data))
+```
+
+and got the following as output
+```
+[1000 1001 1002 1003 1004 1005 1006 1007 1008 1009 1500 1501 1502 1503
+ 1504 1505 1506 1507 1508 1509 2000 2001 2002 2003 2004 2005 2006 2007
+ 2008 2009 2500 2501 2502 2503 2504 2505 2506 2507 2508 2509 3000 3001
+ 3002 3003 3004 3005 3006 3007 3008 3009 3500 3501 3502 3503 3504 3505
+ 3506 3507 3508 3509 4000 4001 4002 4003 4004 4005 4006 4007 4008 4009
+ 4500 4501 4502 4503 4504 4505 4506 4507 4508 4509 5000 5001 5002 5003
+ 5004 5005 5006 5007 5008 5009 5500 5501 5502 5503 5504 5505 5506 5507
+ 5508 5509 6000 6001 6002 6003 6004 6005 6006 6007 6008 6009 6500 6501
+ 6502 6503 6504 6505 6506 6507 6508 6509 7000 7001 7002 7003 7004 7005
+ 7006 7007 7009 7500 7501 7502 7503 7504 7505 7506 7507 7508 7509 8000
+ 8001 8002 8003 8004 8005 8006 8007 8008 8009 8500 8501 8502 8503 8504
+ 8505 8506 8507 8508 8509]
+```
+
+Now, there are 10 intervals in a period(1001-1009 => 10 intervals, 1000 being 1 period)
+and since we move forward in 500, there are 16 periods, which signifies it may be encoded in hex.
+
+here is the final exploit i used:
+
+```
+from scipy.io import *
+import numpy as np
+
+rate, data = wavfile.read('main.wav')
+
+# print(data)
+# print(np.unique(data))
+
+flag = ''
+
+dict = {
+    10 : "0",
+    15 : "1",
+    20 : "2",
+    25 : "3",
+    30 : "4",
+    35 : "5",
+    40 : "6",
+    45 : "7",
+    50 : "8",
+    55 : "9",
+    60 : "A",
+    65 : "B",
+    70 : "C",
+    75 : "D",
+    80 : "E",
+    85 : "F",
+}
+
+for i in range(len(data)):
+    flag += dict[data[i]//100]
+
+
+print(bytearray.fromhex(flag).decode())
+```
+
+I initially printed out flag directly but i got a huge hex output, so i googled the correct way to decode it and ended up with the last line.
+
+the output for the exploit is:
+```
+#!/usr/bin/env python3
+import numpy as np
+from scipy.io.wavfile import write
+from binascii import hexlify
+from random import random
+
+with open('generate_wav.py', 'rb') as f:
+        content = f.read()
+        f.close()
+
+# Convert this program into an array of hex values
+hex_stuff = (list(hexlify(content).decode("utf-8")))
+
+# Loop through the each character, and convert the hex a-f characters to 10-15
+for i in range(len(hex_stuff)):
+        if hex_stuff[i] == 'a':
+                hex_stuff[i] = 10
+        elif hex_stuff[i] == 'b':
+                hex_stuff[i] = 11
+        elif hex_stuff[i] == 'c':
+                hex_stuff[i] = 12
+        elif hex_stuff[i] == 'd':
+                hex_stuff[i] = 13
+        elif hex_stuff[i] == 'e':
+                hex_stuff[i] = 14
+        elif hex_stuff[i] == 'f':
+                hex_stuff[i] = 15
+
+        # To make the program actually audible, 100 hertz is added from the beginning, then the number is multiplied by
+        # 500 hertz
+        # Plus a cheeky random amount of noise
+        hex_stuff[i] = 1000 + int(hex_stuff[i]) * 500 + (10 * random())
+
+
+def sound_generation(name, rand_hex):
+        # The hex array is converted to a 16 bit integer array
+        scaled = np.int16(np.array(hex_stuff))
+        # Sci Pi then writes the numpy array into a wav file
+        write(name, len(hex_stuff), scaled)
+        randomness = rand_hex
+
+
+# Pump up the music!
+# print("Generating main.wav...")
+# sound_generation('main.wav')
+# print("Generation complete!")
+
+# Your ears have been blessed
+# picoCTF{mU21C_1s_1337_fa54924c}
+```
+
+
