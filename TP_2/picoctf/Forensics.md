@@ -424,4 +424,15 @@ towards the end, i could make out that p, i, c, o, C, T, F were spelled out in d
 
 therefore adding all that together gave me the flag. I used the same python script used earlier to remove whitespace.
 
+## PcapPoisoning {MEDIUM}
 
+Flag: ```picoCTF{P64P_4N4L7S1S_SU55355FUL_4624a8b6}```
+
+Hints Used: NONE
+
+Basic challenge, had to navigate through the entire pcap file to get the flag.
+
+![alt text](Extras/pcappoisoning1.png)
+This signified the flag must be in the hex dump, therefore i just skimmed through the entire file and got the flag.
+
+![alt text](Extras/pcappoisoningFLAG.png)
