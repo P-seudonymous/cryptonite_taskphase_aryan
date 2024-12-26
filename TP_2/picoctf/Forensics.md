@@ -475,6 +475,8 @@ then i tried reading the ```xxd``` of the file but that was useless.
 
 After that, i opened audacity again and looked at the sound wave clearly, which showed that the max amplitude was same in the wave.
 
+![alt text](Extras/waves_amplitude.png)
+
 So i googled how to get the data for amplitude, and wrote the following script.
 
 ```
