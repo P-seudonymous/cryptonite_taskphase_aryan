@@ -602,4 +602,16 @@ def sound_generation(name, rand_hex):
 # picoCTF{mU21C_1s_1337_fa54924c}
 ```
 
+## Mobpsycho {MEDIUM}
+
+Flag: ```picoCTF{ax8mC0RU6ve_NX85l4ax8mCl_5e67ea5e}```
+
+Hints Used: NONE
+
+Straightforward challenge, i downloaded the apk and extracted the file, and looked at the folder. Initially i tried bruteforcing all the folders since i couldnt remember the command to grep files, which i googled, and then ran ```find -name *pico*```, ```find -name *ctf```, but finally running ```find -name *flag*``` returned an output -> ```./res/color/flag.txt```.
+
+The flag contained a hex code, which i decoded using https://dcode.fr/en and got the flag.
+
+![alt text](Extras/mobpsycho_flag.png)
+
 
