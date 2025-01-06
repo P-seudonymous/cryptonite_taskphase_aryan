@@ -325,6 +325,23 @@ it basically states that if i can input 0 as an entry number, i should get the f
 however, giving entry number as a string also gave me the flag.
 ![alt text](Extra_BinExp/file-exp_FLAG.png)
 
+(ref for me, lookup strtol manpage and find errors)
+
+## CVE-XXXX-XXXX {MEDIUM}
+
+Flag: ```picoCTF{CVE-2021-34527}```
+
+Hints Used: NONE
+
+This was technically not a challenge, since googling the vuln gave me the flag directly. 
+Upon researching further, i found out that there exists a vulnerability in the windows print spooler service, a program that manages, schedules, stores and accepts printing jobs.
+
+the vuln was that a remote code execution could make the spooler service improperly perform priviledged file options. so if an attacker exploits this vuln, they can use the system with su(or in windows, ADMIN) priviledges and install programs, view/change data etc.
+
+this patch was fixed since microsoft announced the vuln by themselves.
+
+
+
 
 
 
