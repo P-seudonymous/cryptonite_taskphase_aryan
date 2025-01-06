@@ -78,6 +78,253 @@ print(flag)
 'picoCTF{L34k1ng_Fl4g_0ff_St4ck_95f60617}'
 ```
 
+# EXTRA CHALS
+
+## Stonks{MEDIUM}
+
+Flag: ```picoCTF{I_l05t_4ll_my_m0n3y_6045d60d}```
+
+Hints Used: NONE
+
+this chal was similar to the last one, flag leak. i was given a vuln.c file to check for any vulnerarabilities locally since the binary was hosted online.
+
+the program was menu-based, having 2 different functions for each menu, and the vuln was in the first func, ```buystonks```
+```printf(buystonks)```, format string vuln
+![alt text](Extra_BinExp/vuln1.png)
+
+to access the stack, i gave an input of 20-40 ```%x.``` and got some hexoutput, which i separated and joined using python.
+```
+9b983d0804b00080489c3f7f8bd80ffffffff19b96160f7f99110f7f8bdc709b9718019b983b09b983d06f6369707b465443306c5f49345f74356d5f6c6c306d5f795f79336e3534303664303664ffc1007df7fc6af8f7f99440c724c60010f7e28ce9f7f9a0c0f7f8b5c0f7f8b000ffc17368f7e1968df7f8b5c08048ecaffc173740f7fadf09804b000f7f8b000f7f8be20ffc173a8f7fb3d50f7f8c890c724c600f7f8b000804b000ffc173a88048c869b96160ffc17394ffc173a88048be9f7f8b3fc0ffc1745cffc17454119b96160c724c600ffc173c000f7dcefa1f7f8b000f7f8b0000f7dcefa11ffc17454ffc1745cffc173e410f7f8b000f7fae70af7fc60000f7f8b0000089f0e051b2c9a6410001
+```
+
+i put this output in cyberchef and added swap endianness & hex decoder.
+![alt text](Extra_BinExp/vuln_flag.png)
+
+removing the first 4 chars/bits gave me the flag.
+![alt text](Extra_BinExp/flag_stonks.png)
+
+
+## basic-file-exploit{MEDIUM}
+
+Flag: ```picoCTF{M4K3_5UR3_70_CH3CK_Y0UR_1NPU75_E0394EC0}```
+
+Hints Used: NONE
+
+in this chal, we were given a .c file, and i was supposed to find a vuln in the code itself.
+
+code:
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdint.h>
+#include <ctype.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include <sys/types.h>
+
+
+#define WAIT 60
+
+
+static const char* flag = "[REDACTED]";
+
+static char data[10][100];
+static int input_lengths[10];
+static int inputs = 0;
+
+
+
+int tgetinput(char *input, unsigned int l)
+{
+    fd_set          input_set;
+    struct timeval  timeout;
+    int             ready_for_reading = 0;
+    int             read_bytes = 0;
+    
+    if( l <= 0 )
+    {
+      printf("'l' for tgetinput must be greater than 0\n");
+      return -2;
+    }
+    
+    
+    /* Empty the FD Set */
+    FD_ZERO(&input_set );
+    /* Listen to the input descriptor */
+    FD_SET(STDIN_FILENO, &input_set);
+
+    /* Waiting for some seconds */
+    timeout.tv_sec = WAIT;    // WAIT seconds
+    timeout.tv_usec = 0;    // 0 milliseconds
+
+    /* Listening for input stream for any activity */
+    ready_for_reading = select(1, &input_set, NULL, NULL, &timeout);
+    /* Here, first parameter is number of FDs in the set, 
+     * second is our FD set for reading,
+     * third is the FD set in which any write activity needs to updated,
+     * which is not required in this case. 
+     * Fourth is timeout
+     */
+
+    if (ready_for_reading == -1) {
+        /* Some error has occured in input */
+        printf("Unable to read your input\n");
+        return -1;
+    } 
+
+    if (ready_for_reading) {
+        read_bytes = read(0, input, l-1);
+        if(input[read_bytes-1]=='\n'){
+        --read_bytes;
+        input[read_bytes]='\0';
+        }
+        if(read_bytes==0){
+            printf("No data given.\n");
+            return -4;
+        } else {
+            return 0;
+        }
+    } else {
+        printf("Timed out waiting for user input. Press Ctrl-C to disconnect\n");
+        return -3;
+    }
+
+    return 0;
+}
+
+
+static void data_write() {
+  char input[100];
+  char len[4];
+  long length;
+  int r;
+  
+  printf("Please enter your data:\n");
+  r = tgetinput(input, 100);
+  // Timeout on user input
+  if(r == -3)
+  {
+    printf("Goodbye!\n");
+    exit(0);
+  }
+  
+  while (true) {
+    printf("Please enter the length of your data:\n");
+    r = tgetinput(len, 4);
+    // Timeout on user input
+    if(r == -3)
+    {
+      printf("Goodbye!\n");
+      exit(0);
+    }
+  
+    if ((length = strtol(len, NULL, 10)) == 0) {
+      puts("Please put in a valid length");
+    } else {
+      break;
+    }
+  }
+
+  if (inputs > 10) {
+    inputs = 0;
+  }
+
+  strcpy(data[inputs], input);
+  input_lengths[inputs] = length;
+
+  printf("Your entry number is: %d\n", inputs + 1);
+  inputs++;
+}
+
+
+static void data_read() {
+  char entry[4];
+  long entry_number;
+  char output[100];
+  int r;
+
+  memset(output, '\0', 100);
+  
+  printf("Please enter the entry number of your data:\n");
+  r = tgetinput(entry, 4);
+  // Timeout on user input
+  if(r == -3)
+  {
+    printf("Goodbye!\n");
+    exit(0);
+  }
+  
+  if ((entry_number = strtol(entry, NULL, 10)) == 0) {
+    puts(flag);
+    fseek(stdin, 0, SEEK_END);
+    exit(0);
+  }
+
+  entry_number--;
+  strncpy(output, data[entry_number], input_lengths[entry_number]);
+  puts(output);
+}
+
+
+int main(int argc, char** argv) {
+  char input[3] = {'\0'};
+  long command;
+  int r;
+
+  puts("Hi, welcome to my echo chamber!");
+  puts("Type '1' to enter a phrase into our database");
+  puts("Type '2' to echo a phrase in our database");
+  puts("Type '3' to exit the program");
+
+  while (true) {   
+    r = tgetinput(input, 3);
+    // Timeout on user input
+    if(r == -3)
+    {
+      printf("Goodbye!\n");
+      exit(0);
+    }
+    
+    if ((command = strtol(input, NULL, 10)) == 0) {
+      puts("Please put in a valid number");
+    } else if (command == 1) {
+      data_write();
+      puts("Write successful, would you like to do anything else?");
+    } else if (command == 2) {
+      if (inputs == 0) {
+        puts("No data yet");
+        continue;
+      }
+      data_read();
+      puts("Read successful, would you like to do anything else?");
+    } else if (command == 3) {
+      return 0;
+    } else {
+      puts("Please type either 1, 2 or 3");
+      puts("Maybe breaking boundaries elsewhere will be helpful");
+    }
+  }
+
+  return 0;
+}
+```
+
+since the code was 195 lines, and i was to lazy to read all of it, i just searched for flag in the code and found this snippet.
+
+```
+  if ((entry_number = strtol(entry, NULL, 10)) == 0) {
+    puts(flag);
+    fseek(stdin, 0, SEEK_END);
+    exit(0);
+  }
+```
+it basically states that if i can input 0 as an entry number, i should get the flag, since ```puts()``` will display the value of ```flag``` if condition is ```True```.
+
+however, giving entry number as a string also gave me the flag.
+![alt text](Extra_BinExp/file-exp_FLAG.png)
+
 
 
 
