@@ -18,7 +18,7 @@ lst = '9b983d0.804b000.80489c3.f7f8bd80.ffffffff.1.9b96160.f7f99110.f7f8bdc7.0.9
 # b = "".join(a)
 # print(b)
 
-print(x*64)
+print(x*32+'pico')
 
 a = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3'
 

