@@ -341,6 +341,53 @@ the vuln was that a remote code execution could make the spooler service imprope
 this patch was fixed since microsoft announced the vuln by themselves.
 
 
+## RPS {MEDIUM}
+
+Flag: ```picoCTF{50M3_3X7R3M3_1UCK_58F0F41B}```
+
+Hints Used: 1
+
+This challenge did not particularly use BinExp(i think?) since it was more targeted on how functions work in C.
+
+in the source code, to check the win condition, the function used was strstr, ```strstr(3p)man```
+
+```
+DESCRIPTION
+       The functionality described on this reference page is aligned with the ISO C standard. Any conflict between the requirements described
+       here and the ISO C standard is unintentional. This volume of POSIX.1‐2017 defers to the ISO C standard.
+
+       The strstr() function shall locate the first occurrence in the string pointed to by s1 of the sequence of bytes (excluding the  termi‐
+       nating NUL character) in the string pointed to by s2.
+
+RETURN VALUE
+       Upon successful completion, strstr() shall return a pointer to the located string or a null pointer if the string is not found.
+
+       If s2 points to a string with zero length, the function shall return s1.
+```
+
+```
+  if (strstr(player_turn, loses[computer_turn])) {
+    puts("You win! Play again?");
+    return true;
+  } else {
+    puts("Seems like you didn't win this time. Play again?");
+    return false;
+  }
+}
+```
+
+therefore to get the flag, there needs to be an occurence of string2 in string1.
+so i gave the input => ```rockpaperscissors```, since one of them will always win.
+
+as the win condition was >=5, i ran it 5 times and got the flag. on the other hand, i could've ran a script in bash and automated the process but i got the flag nonetheless.
+
+
+
+
+
+
+
+
 
 
 

