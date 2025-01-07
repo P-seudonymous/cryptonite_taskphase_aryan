@@ -381,6 +381,128 @@ so i gave the input => ```rockpaperscissors```, since one of them will always wi
 
 as the win condition was >=5, i ran it 5 times and got the flag. on the other hand, i could've ran a script in bash and automated the process but i got the flag nonetheless.
 
+output: 
+```
+Welcome challenger to the game of Rock, Paper, Scissors
+For anyone that beats me 5 times in a row, I will offer up a flag I found
+Are you ready?
+Type '1' to play a game
+Type '2' to exit the program
+1   
+1
+
+
+Please make your selection (rock/paper/scissors):
+rockpaperscissors
+rockpaperscissors
+You played: rockpaperscissors
+The computer played: scissors
+You win! Play again?
+Type '1' to play a game
+Type '2' to exit the program
+1
+1
+
+
+Please make your selection (rock/paper/scissors):
+rockpaperscissors
+rockpaperscissors
+You played: rockpaperscissors
+The computer played: rock
+You win! Play again?
+Type '1' to play a game
+Type '2' to exit the program
+1
+1
+
+
+Please make your selection (rock/paper/scissors):
+rockpaperscissors
+rockpaperscissors
+You played: rockpaperscissors
+The computer played: paper
+You win! Play again?
+Type '1' to play a game
+Type '2' to exit the program
+1
+1
+
+
+Please make your selection (rock/paper/scissors):
+rockpaperscissors
+rockpaperscissors
+You played: rockpaperscissors
+The computer played: scissors
+You win! Play again?
+Type '1' to play a game
+Type '2' to exit the program
+1
+1
+
+
+Please make your selection (rock/paper/scissors):
+rockpaperscissors
+rockpaperscissors
+You played: rockpaperscissors
+The computer played: rock
+You win! Play again?
+Congrats, here's the flag!
+picoCTF{50M3_3X7R3M3_1UCK_58F0F41B}
+Type '1' to play a game
+Type '2' to exit the program
+```
+
+## heap0 {easy}
+
+Flag: ```picoCTF{my_first_heap_overflow_4fa6dd49}```
+
+Hints Used: NONE
+
+this challenge looked daunting when i opened the binary, but as soon as i went through the code, i figured out the solution.
+
+in the code, there was a check_win() func:
+
+```
+void check_win() {
+    if (strcmp(safe_var, "bico") != 0) {
+        printf("\nYOU WIN\n");
+
+        // Print flag
+        char buf[FLAGSIZE_MAX];
+        FILE *fd = fopen("flag.txt", "r");
+        fgets(buf, FLAGSIZE_MAX, fd);
+        printf("%s\n", buf);
+        fflush(stdout);
+
+        exit(0);
+    } else {
+        printf("Looks like everything is still secure!\n");
+        printf("\nNo flage for you :(\n");
+        fflush(stdout);
+    }
+}
+```
+
+here, the buf is declared as FLAGSIZE_MAX, which was defined as 64 in the code.
+
+so i sent an input of 64 A's and got the flag.
+
+Edit: so i googled the chal to find the optimal solution, and i realized that i could overflow the heap by giving 32+1 A's as well.
+
+the logic for that was the difference between the 2 addresses was 32, therefore anything exceeding that would overflow the next variable.
+
+```
+Heap State:
++-------------+----------------+
+[*] Address   ->   Heap Data   
++-------------+----------------+
+[*]   0x60dfd8fea6b0  ->   pico
++-------------+----------------+
+[*]   0x60dfd8fea6d0  ->   bico
++-------------+----------------+
+```
+
+addr(pico)-addr(bico) => 0x20 or (32)base_10.
 
 
 
