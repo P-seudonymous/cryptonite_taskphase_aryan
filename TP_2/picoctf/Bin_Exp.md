@@ -584,6 +584,28 @@ YOU WIN
 picoCTF{starting_to_get_the_hang_21306688}
 ```
 
+## format string 1 {MEDIUM}
+
+Flag: ```picoCTF{4n1m41_57y13_4x4_f14g_64277116}```
+
+Hints Used: 2
+
+This challenge was a sequel to formatstring0, and it took a lot of time to solve this challenge, although this wasnt a particularly hard chal. In this chal, there was a format string vuln like this => ```printf(buf)```, where buf was a declared var.
+
+to get the flag, i gave an input of (%lx,)*8, since this was a 64 bit file, and the first 5 format specifier go to => (RDI is the input) RSI, RDX, RCX, R8, R9, and then stack.
+
+the output was => ```402118,0,7a8142649a00,0,a94880,a347834,7ffe4f8e3580,7a814243ae60,7a814265f4d0,1,7ffe4f8e3650,0,0,7b4654436f636970,355f31346d316e34,3478345f33317937```
+
+since the 0th index was the input, we start counting from 1. the 14th element, ```7b4654436f636970``` is different since its the first value not repeating.
+
+therefore i gave an input of ```%14$lx.%15$lx.%16$lx.%17$lx.%18$lx``` and got the output => ```7b4654436f636970.355f31346d316e34.3478345f33317937.34365f673431665f.7d363131373732```
+
+putting this in cyberchef gave me a flag, but in reverse order, so i arranged the elements as 18, 17, 16, 15, 14 to get the flag.
+
+![alt text](Extra_BinExp/format_string_1/flag.png)
+
+
+
 
 
 
