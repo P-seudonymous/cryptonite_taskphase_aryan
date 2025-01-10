@@ -7,16 +7,28 @@ In this challenge, we were initially provided a .pcapng file, and a python file(
 So I looked for the first character that contained HID data(the information sent by keyboard when a key is pressed).
 
 I filtered out the HID data(which was in hex) using python and gave it as a stdout to a text file.
-The hex data contained over 6k lines, i'll attach it here.
+The [hex data](assets/hexd.txt) contained over 6k lines.
 
-[text](assets/hexd.txt)
+head:
+
+```
+020000130000000000
+020000000000000000
+0200001c0000000000
+020000000000000000
+020000170000000000
+020000000000000000
+0200000b0000000000
+020000000000000000
+020000120000000000
+020000000000000000
+```
+
 
 Then using python(i did not write the script, got it off the internet), converted HID -> string and got an output as ``` w a w a space``` etc.
-[text](assets/script.py)
+[script](assets/script.py)
 
-[text](assets/flag.txt) 
-
-[text](assets/output.txt)
+This was the [output](assets/flag.txt) from the script, which i converted to a [single string](assets/output.txt).
 
 
 
