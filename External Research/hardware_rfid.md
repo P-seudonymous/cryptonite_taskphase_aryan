@@ -29,7 +29,6 @@ Laser Engraved cards are known as UUID(unique uid).
 
 
 
-
 ### Sources: 
 
 [RFId Range Data](https://www.impinj.com/products/technology/how-can-rfid-systems-be-categorized#:~:text=High%2DFrequency%20(HF)%20RFID,payment%2C%20and%20data%20transfer%20applications.)
