@@ -7,10 +7,7 @@
 | Rev Engg.   | 3     | 0    |
 | Cryptography     | 3       | 0      |
 | WebExp   | 3     | 0    |
-
-| all-domains | total-chals |extra-chals |
-| :---:         |     :---:      |          :---: |
-| Forensics   | 36     | 21    |
+| all-domains   | 36     | 21    |
 
 
 ### graph
