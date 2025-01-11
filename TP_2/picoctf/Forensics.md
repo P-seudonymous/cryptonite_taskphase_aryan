@@ -689,4 +689,6 @@ using that, it was evident that this was a jpeg file.
 
 ![alt text](flag_endianness.png)
 
-using the render image operation, i got the ![flag]](flag_endian.jpeg)
+using the render image operation, i got the flag.
+
+![alt text](flag_endian.jpeg)
