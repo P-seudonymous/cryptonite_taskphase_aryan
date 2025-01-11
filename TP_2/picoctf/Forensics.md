@@ -686,6 +686,7 @@ i ran the command `xxd -ps challengefile > endian.txt` to give stdin to a textfi
 after that, i used cyberchef to check the hexdump and used 2 operations => from hex and swap endianness.
 
 using that, it was evident that this was a jpeg file.
-using the render image operation, i got the flag.
 
-![alt text](flag_endian.jpeg)
+![alt text](flag_endianness.png)
+
+using the render image operation, i got the ![flag]](flag_endian.jpeg)
