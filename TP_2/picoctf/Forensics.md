@@ -672,3 +672,20 @@ here is the output for the exploit:
 It took a decently long time to print the output, around 10-30s.
 
 giving the pin as the input on the remote connection gave me the flag.
+
+
+## endianness-v2 {medium}
+
+Flag: `picoCTF{cert!f1Ed_iNd!4n_s0rrY_3nDian_188d7b8c}`
+
+Hints Used: NONE
+
+simple challenge, binary file was provided.
+
+i ran the command `xxd -ps challengefile > endian.txt` to give stdin to a textfile.
+after that, i used cyberchef to check the hexdump and used 2 operations => from hex and swap endianness.
+
+using that, it was evident that this was a jpeg file.
+using the render image operation, i got the flag.
+
+![alt text](flag_endian.jpeg)
