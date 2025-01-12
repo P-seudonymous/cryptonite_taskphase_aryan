@@ -38,8 +38,8 @@ There is 1k(classic), 2k, 4k and 8k
 
 Currently, im in possession of only MIFARE 1K CLASSIC cards and tags.
 
-In the classic 1k, 
-The memory layout is as shown below:
+In the classic 1k, the memory layout is as shown below:
+
 ![alt text](assets/memory_layout_1k.png)
 
 There are 16 sectors, each sector containing 4 data blocks, and each block containing 16 bytes.
