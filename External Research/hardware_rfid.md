@@ -152,6 +152,7 @@ However, the machine has 2 connection:
 ![alt text](assets/POS_machine.jpeg)
 
 Grey Cable -> Serial Port
+
 White Cable -> RJ45
 
 I need to verify if an EEPROM card(CUID) with the UID of another students card will work, since it will confirm the gaping flaw in the system, since we're dealing with actual money with which students buy food.
