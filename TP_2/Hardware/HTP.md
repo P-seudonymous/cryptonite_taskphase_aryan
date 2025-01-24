@@ -36,6 +36,6 @@ My solution:
 
 My answer:
 
-The mathematical definition of baudrate is bits per second.
+The mathematical definition of baudrate is signal changes per second.
 another formula for baudrate is => `1/Time(smallest bit)`, just like `f=1/T`.
 therefore, this approach will give the 'custom' baudrate for the signal.
